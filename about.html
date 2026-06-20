@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About Ohanaeze – Ohanaeze Ndigbo Worldwide</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Lato', sans-serif; color: #222; }
+
+  /* ── TOP BAR (from index) ── */
+  .topbar {
+    background: #1a1a1a;
+    color: #ddd;
+    font-size: 12px;
+    padding: 7px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+  }
+  .topbar .contacts { display: flex; gap: 18px; align-items: center; }
+  .topbar .contacts span { display: flex; align-items: center; gap: 6px; }
+  .topbar .socials { display: flex; gap: 12px; align-items: center; }
+  .topbar .socials a {
+    color: #ccc; text-decoration: none;
+    width: 34px; height: 34px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    transition: background 0.2s, color 0.2s;
+  }
+  .topbar .socials a svg { width: 18px; height: 18px; fill: currentColor; }
+  .topbar .socials a:hover { color: #fff; background: rgba(255,255,255,0.18); }
+
+  /* ── HEADER / NAV (from index) ── */
+  .header {
+    background: #fff;
+    padding: 14px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .logo-area { display: flex; align-items: center; gap: 14px; }
+  .logo-area img { width: 62px; height: 62px; object-fit: contain; }
+  .logo-text { line-height: 1.2; }
+  .logo-text .org-name { font-size: 20px; font-weight: 900; color: #1a1a1a; letter-spacing: 0.6px; text-transform: uppercase; }
+  .logo-text .tagline { font-size: 13px; color: #666; font-weight: 600; letter-spacing: 0.35px; }
+
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a {
+    text-decoration: none; font-size: 13px; font-weight: 800;
+    color: #333; letter-spacing: 0.35px; text-transform: uppercase;
+    padding-bottom: 4px; border-bottom: 2px solid transparent;
+    transition: color 0.25s, border-color 0.25s;
+  }
+  nav a.active { color: #c0392b; border-color: #c0392b; }
+  nav a:hover { color: #c0392b; }
+  .btn-join {
+    background: #c0392b; color: #fff !important; padding: 8px 18px;
+    border-radius: 4px; font-size: 11px !important; font-weight: 700 !important;
+    text-transform: uppercase; letter-spacing: 0.4px;
+    border-bottom: none !important; transition: background 0.2s !important;
+  }
+  .btn-join:hover { background: #a93226 !important; }
+
+  /* ── HAMBURGER (from index) ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+    z-index: 200;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: #1a1a1a; border-radius: 2px; transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE NAV OVERLAY (from index) ── */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #fff;
+    z-index: 150;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .mobile-nav.open { display: flex; }
+
+  .mobile-nav-header {
+    background: #6b0000;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    min-height: 64px;
+  }
+  .mobile-nav-brand { display: flex; align-items: center; gap: 10px; }
+  .mobile-nav-brand img {
+    width: 44px; height: 44px; object-fit: contain;
+    border-radius: 50%; background: #fff; padding: 2px; flex-shrink: 0;
+  }
+  .mobile-nav-brand-text {
+    color: #fff; font-size: 11.5px; font-weight: 900;
+    text-transform: uppercase; line-height: 1.35; letter-spacing: 0.4px;
+  }
+  .mobile-nav-close {
+    color: #fff; font-size: 22px; cursor: pointer;
+    background: none; border: none; line-height: 1;
+    padding: 4px 6px; display: flex; flex-direction: column;
+    gap: 5px; justify-content: center;
+  }
+  .mobile-nav-close .bar {
+    display: block; width: 22px; height: 2px;
+    background: #fff; border-radius: 2px;
+  }
+  .mobile-nav-links {
+    flex: 1; display: flex; flex-direction: column;
+    padding: 10px 0 4px; background: #fff;
+  }
+  .mobile-nav-links a {
+    color: #6b0000; text-decoration: none;
+    font-size: 15px; font-weight: 500;
+    padding: 11px 22px; display: block;
+    transition: background 0.15s; letter-spacing: 0.1px;
+  }
+  .mobile-nav-links a:hover { background: #fdf0f0; color: #8b0000; }
+  .mobile-nav-btns {
+    padding: 14px 18px 12px; display: flex;
+    flex-direction: column; gap: 10px; background: #fff;
+  }
+  .mobile-nav-btns a {
+    display: block; text-align: center; padding: 13px 16px;
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.8px; text-decoration: none;
+    border-radius: 3px; transition: all 0.2s;
+  }
+  .mob-btn-join { background: #e2b04a; color: #111 !important; }
+  .mob-btn-join:hover { background: #c9983a; }
+  .mob-btn-contact { background: transparent; color: #6b0000 !important; border: 2px solid #6b0000; }
+  .mob-btn-contact:hover { background: #6b0000; color: #fff !important; }
+  .mobile-nav-footer {
+    padding: 14px 22px 22px; display: flex;
+    gap: 18px; align-items: center; background: #fff; flex-shrink: 0;
+  }
+  .mobile-nav-footer a {
+    color: #333; text-decoration: none; font-size: 18px;
+    transition: color 0.2s; display: flex; align-items: center; justify-content: center;
+  }
+  .mobile-nav-footer a:hover { color: #6b0000; }
+  .mob-social-svg { width: 20px; height: 20px; fill: currentColor; }
+
+  /* ── ABOUT PAGE STYLES ── */
+  :root {
+    --red: #c0392b;
+    --dark-red: #8b0000;
+    --maroon: #6b0000;
+    --gold: #e2b04a;
+    --black: #1a1a1a;
+    --text: #333;
+    --text-light: #555;
+    --gray-bg: #f7f7f7;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    background: #111;
+    min-height: 280px;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-img {
+    position: absolute; inset: 0;
+    background: url('img/6.jpeg') center/cover no-repeat;
+    opacity: 0.32;
+  }
+  .hero-content { position: relative; z-index: 2; padding: 60px 60px; }
+  .hero-accent { width: 40px; height: 4px; background: var(--red); margin-bottom: 20px; }
+  .hero-content h2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 42px; font-weight: 900;
+    color: #fff; line-height: 1.1; max-width: 560px;
+  }
+  .breadcrumb { margin-top: 20px; font-size: 13px; color: #ccc; display: flex; align-items: center; gap: 8px; }
+  .breadcrumb a { color: var(--red); text-decoration: none; font-weight: 700; }
+
+  /* WHO WE ARE */
+  .about-section { padding: 70px 60px; }
+  .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .who-img {
+    border-radius: 4px; overflow: hidden; height: 310px;
+    background: url('img/4.jpeg') center/cover no-repeat;
+  }
+  .who-text h3 {
+    font-size: 24px; font-weight: 900; color: var(--black);
+    margin-bottom: 18px; position: relative; padding-bottom: 12px;
+  }
+  .who-text h3::after { content: ''; position: absolute; left: 0; bottom: 0; width: 36px; height: 3px; background: var(--red); }
+  .who-text p { font-size: 14.5px; line-height: 1.85; color: var(--text-light); margin-bottom: 14px; font-weight: 500; }
+
+  /* MISSION / VISION */
+  .mv-section {
+    background: var(--gray-bg);
+    padding: 56px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .mv-card {
+    background: #fff; border-radius: 6px;
+    padding: 32px 30px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-top: 4px solid var(--dark-red);
+  }
+  .mv-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .mv-icon {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: #fff0f0; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mv-icon svg { width: 22px; height: 22px; stroke: var(--red); fill: none; stroke-width: 2; }
+  .mv-card h4 { font-size: 18px; font-weight: 900; color: var(--black); }
+  .mv-card p { font-size: 13.5px; color: var(--text-light); line-height: 1.8; font-weight: 500; }
+
+  /* CORE VALUES */
+  .values-section { padding: 64px 60px; }
+  .section-title {
+    font-size: 22px; font-weight: 900; color: var(--black);
+    margin-bottom: 36px; position: relative; padding-bottom: 12px;
+  }
+  .section-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 36px; height: 3px; background: var(--red); }
+  .values-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+  .value-card { text-align: center; padding: 8px 4px; }
+  .value-icon {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: #fff0f0; margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .value-icon svg { width: 24px; height: 24px; stroke: var(--red); fill: none; stroke-width: 2; }
+  .value-card h5 { font-size: 13.5px; font-weight: 900; color: var(--black); margin-bottom: 7px; }
+  .value-card p { font-size: 12px; color: var(--text-light); line-height: 1.6; font-weight: 500; }
+
+  /* OBJECTIVES */
+  .objectives-section { padding: 0 60px 64px; }
+  .objectives-list { list-style: none; margin-top: 4px; }
+  .objectives-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 14px; color: var(--text-light); line-height: 1.75;
+    margin-bottom: 12px; font-weight: 500;
+  }
+  .objectives-list li::before {
+    content: ''; width: 8px; height: 8px; min-width: 8px;
+    background: var(--red); border-radius: 50%; margin-top: 7px;
+  }
+
+  /* CTA BANNER */
+  .cta-banner { background: var(--dark-red); padding: 60px 40px; text-align: center; }
+  .cta-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700;
+    color: #fff; margin-bottom: 28px; font-style: italic;
+  }
+  .btn-cta {
+    display: inline-block; background: var(--gold); color: #111;
+    font-size: 13px; font-weight: 900; padding: 16px 48px;
+    border-radius: 3px; text-decoration: none;
+    letter-spacing: 1px; text-transform: uppercase; transition: background 0.2s;
+  }
+  .btn-cta:hover { background: #c9983a; }
+
+  /* FOOTER */
+  footer { background: #111; color: #bbb; padding: 52px 60px 28px; }
+  .footer-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 40px; margin-bottom: 40px;
+  }
+  .footer-brand .foot-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .footer-brand .foot-logo img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; background: #fff; }
+  .footer-brand .foot-org { font-size: 12px; font-weight: 900; color: #fff; text-transform: uppercase; }
+  .footer-brand .foot-tag { font-size: 10px; color: #888; }
+  .follow-label { font-size: 12px; font-weight: 700; color: var(--gold); margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .foot-socials { display: flex; gap: 10px; }
+  .foot-socials a {
+    width: 34px; height: 34px; border-radius: 50%; border: 1px solid #444;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; text-decoration: none; transition: all 0.2s;
+  }
+  .foot-socials a svg { width: 16px; height: 16px; fill: currentColor; }
+  .foot-socials a:hover { background: var(--red); border-color: var(--red); }
+  footer h4 { color: var(--gold); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 16px; }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  footer ul li a { color: #bbb; text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+  footer ul li a:hover { color: #fff; }
+  .subscribe-area p { font-size: 12px; color: #888; margin-bottom: 14px; line-height: 1.6; }
+  .subscribe-form { display: flex; }
+  .subscribe-form input {
+    flex: 1; padding: 10px 12px; border: 1px solid #333;
+    background: #1e1e1e; color: #fff; font-size: 12px;
+    border-radius: 3px 0 0 3px; outline: none;
+  }
+  .subscribe-form input::placeholder { color: #555; }
+  .subscribe-form button {
+    background: var(--gold); color: #111; border: none;
+    padding: 10px 16px; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; cursor: pointer;
+    border-radius: 0 3px 3px 0; transition: background 0.2s;
+  }
+  .subscribe-form button:hover { background: #c9983a; }
+  .foot-socials2 { display: flex; gap: 10px; margin-top: 14px; }
+  .foot-socials2 a {
+    width: 38px; height: 38px; border-radius: 50%; border: 1px solid #333;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; text-decoration: none; transition: all 0.2s;
+  }
+  .foot-socials2 a svg { width: 16px; height: 16px; fill: currentColor; }
+  .foot-socials2 a:hover { background: var(--red); border-color: var(--red); }
+  .footer-bottom {
+    border-top: 1px solid #2a2a2a; padding-top: 22px;
+    text-align: center; font-size: 12px; color: #555;
+  }
+
+  /* ── RESPONSIVE (mirrors index.html breakpoints) ── */
+  @media (max-width: 900px) {
+    nav { display: none; }
+    .hamburger { display: flex; }
+
+    .topbar { padding: 6px 16px; font-size: 11px; }
+    .topbar .contacts { gap: 10px; }
+    .header { padding: 12px 16px; }
+    .logo-area img { width: 48px; height: 48px; }
+    .logo-text .org-name { font-size: 13px; }
+
+    .hero-content { padding: 44px 24px; }
+    .hero-content h2 { font-size: 30px; }
+
+    .about-section { padding: 44px 24px; }
+    .who-grid { grid-template-columns: 1fr; gap: 32px; }
+
+    .mv-section { padding: 44px 24px; grid-template-columns: 1fr; gap: 24px; }
+    .values-section { padding: 44px 24px; }
+    .values-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .objectives-section { padding: 0 24px 44px; }
+
+    footer { padding: 44px 24px 24px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+
+  @media (max-width: 540px) {
+    .topbar { display: none; }
+    .header { padding: 10px 14px; }
+    .logo-area img { width: 40px; height: 40px; }
+    .logo-text .org-name { font-size: 11.5px; }
+    .logo-text .tagline { display: none; }
+
+    .hero-content { padding: 36px 18px; }
+    .hero-content h2 { font-size: 24px; }
+
+    .about-section { padding: 36px 16px; }
+    .who-img { height: 220px; }
+    .mv-section { padding: 36px 16px; }
+    .values-section { padding: 36px 16px; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+    .objectives-section { padding: 0 16px 36px; }
+
+    footer { padding: 36px 16px 20px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+
+  @media (max-width: 380px) {
+    .hero-content h2 { font-size: 20px; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR (identical to index) -->
+<div class="topbar">
+  <div class="contacts">
+    <span>📞 +2348023589992</span>
+    <span>✉ info@ohanaeze-aforumma.org</span>
+  </div>
+  <div class="socials">
+    <a href="#" aria-label="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.5 9.9v-7h-2.6v-2.9h2.6V9.3c0-2.6 1.6-4 3.9-4 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6v1.9h2.9l-.5 2.9h-2.4v7C18.3 21.1 22 17 22 12z"/></svg>
+    </a>
+    <a href="#" aria-label="X">
+      <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </a>
+    <a href="#" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M4 8h4v12H4V8zm2-4a2 2 0 110 4 2 2 0 010-4zm6 4h3.6v1.6h.1c.5-.9 1.7-1.8 3.5-1.8 3.7 0 4.4 2.4 4.4 5.5V24h-4V14.5c0-2 0-4.5-2.8-4.5-2.8 0-3.2 2.2-3.2 4.4V24h-4V8z"/></svg>
+    </a>
+    <a href="#" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm8 1a1 1 0 110 2 1 1 0 010-2zm-5 2.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/></svg>
+    </a>
+    <a href="#" aria-label="YouTube">
+      <svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 00-2.1-2.1C18.7 4.5 12 4.5 12 4.5s-6.7 0-8.9.6A3 3 0 001 7.2 31.9 31.9 0 000 12a31.9 31.9 0 001 4.8 3 3 0 002.1 2.1C5.3 19.5 12 19.5 12 19.5s6.7 0 8.9-.6a3 3 0 002.1-2.1A31.9 31.9 0 0024 12a31.9 31.9 0 00-1-4.8zM10 15.5V8.5l6.5 3.5L10 15.5z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- HEADER (identical to index) -->
+<header class="header">
+  <div class="logo-area">
+    <img id="logo-img" src="img/logo.jpeg" alt="Ohanaeze Logo3">
+    <div class="logo-text">
+      <div class="org-name">Ohanaeze Ndigbo<br>Worldwide</div>
+      <div class="tagline">Unity, Peace and Progress</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#" class="active">Home</a>
+    <a href="#">Executives</a>
+    <a href="#">Press Release</a>
+    <a href="#">Constitution</a>
+    <a href="#">Gallery</a>
+    <a href="#">State Chapter</a>
+    <a href="#">Projects</a>
+    <a href="#">Contact Us</a>
+    <a href="#" class="btn-join">Join Ohanaeze</a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MOBILE NAV (identical to index) -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <div class="mobile-nav-brand">
+      <img id="mob-nav-logo" src="" alt="Ohanaeze Logo" onerror="this.style.display='none'">
+      <div class="mobile-nav-brand-text">Ohanaeze Ndigbo<br>Worldwide</div>
+    </div>
+    <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="#" onclick="closeMobileNav()">Home</a>
+    <a href="#" onclick="closeMobileNav()">About Us</a>
+    <a href="#" onclick="closeMobileNav()">Leadership</a>
+    <a href="#" onclick="closeMobileNav()">Resources</a>
+    <a href="#" onclick="closeMobileNav()">News/Events</a>
+    <a href="#" onclick="closeMobileNav()">Gallery</a>
+    <a href="#" onclick="closeMobileNav()">Contact Us</a>
+  </div>
+  <div class="mobile-nav-btns">
+    <a href="#" class="mob-btn-join" onclick="closeMobileNav()">Join Now</a>
+    <a href="#" class="mob-btn-contact" onclick="closeMobileNav()">Contact Us</a>
+  </div>
+  <div class="mobile-nav-footer">
+    <a href="#" aria-label="Facebook">
+      <svg class="mob-social-svg" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+    <a href="#" aria-label="Twitter">
+      <svg class="mob-social-svg" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="#" aria-label="YouTube">
+      <svg class="mob-social-svg" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
+    </a>
+    <a href="#" aria-label="Instagram">
+      <svg class="mob-social-svg" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="#fff"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <div class="hero-accent"></div>
+    <h2>About Ohanaeze<br>Ndigbo Worldwide</h2>
+    <div class="breadcrumb">
+      <a href="#">Home</a>
+      <span style="color:#aaa;">›</span>
+      <span style="color:#ccc;">About Ohanaeze</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="about-section">
+  <div class="who-grid">
+    <div class="who-img"></div>
+    <div class="who-text">
+      <h3>Who We Are</h3>
+      <p>Ohanaeze Ndigbo Worldwide is the apex Igbo socio-cultural organization dedicated to uniting the Igbo people globally and fostering unity, peace and socio-economic development for the good of all.</p>
+      <p>Founded on the foundation of unity, social charity, fairness to the Ndigbo race and integrity.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION & VISION -->
+<div class="mv-section">
+  <div class="mv-card">
+    <div class="mv-card-header">
+      <div class="mv-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
+      </div>
+      <h4>Our Mission</h4>
+    </div>
+    <p>Promoting unity, culture, justice and cultural heritage, while advancing economic empowerment and political participation among Igbo people.</p>
+  </div>
+  <div class="mv-card">
+    <div class="mv-card-header">
+      <div class="mv-icon">
+        <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <h4>Our Vision</h4>
+    </div>
+    <p>For social justice, economic thrive and cultural preservation of Ndigbo and everyone.</p>
+  </div>
+</div>
+
+<!-- CORE VALUES -->
+<section class="values-section">
+  <h3 class="section-title">Our Core Values</h3>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <h5>Unity</h5>
+      <p>Togetherness over diversity always.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <h5>Heritage</h5>
+      <p>Preserve our cultural roots and values.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      </div>
+      <h5>Progress</h5>
+      <p>Development in every generation.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h5>Integrity</h5>
+      <p>Upholding honesty in leadership.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </div>
+      <h5>Strength</h5>
+      <p>Leadership firmness in service to all.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section class="objectives-section">
+  <h3 class="section-title">Our Objectives</h3>
+  <ul class="objectives-list">
+    <li>Promote unity among all Ndigbo irrespective of villages, politics or social status.</li>
+    <li>Preserve and promote the history, languages and culture.</li>
+    <li>Represent the socio-political aspirations of Ndigbo.</li>
+    <li>Champion the rights and welfare of Ndigbo.</li>
+    <li>Raise awareness of our challenges both local and global.</li>
+    <li>Foster cooperation with government and global goals.</li>
+  </ul>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>Together, we can achieve more</h2>
+  <a href="#" class="btn-cta">Join Us Today</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="foot-logo">
+        <img id="foot-logo-img" src="" alt="Ohanaeze Logo" onerror="this.style.display='none'">
+        <div>
+          <div class="foot-org">Ohanaeze Ndigbo<br>Worldwide</div>
+          <div class="foot-tag">Unity, Peace and Progress</div>
+        </div>
+      </div>
+      <div class="follow-label">Follow Us</div>
+      <div class="foot-socials">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="#111"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#111" stroke-width="2"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Leadership</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">News &amp; Events</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Departments</h4>
+      <ul>
+        <li><a href="#">Business &amp; Trade</a></li>
+        <li><a href="#">Education</a></li>
+        <li><a href="#">Women's Affairs</a></li>
+        <li><a href="#">Youth Wing</a></li>
+        <li><a href="#">Culture</a></li>
+        <li><a href="#">Health</a></li>
+        <li><a href="#">Diaspora Affairs</a></li>
+        <li><a href="#">Security Committee</a></li>
+      </ul>
+    </div>
+    <div class="subscribe-area">
+      <h4>Stay Connected</h4>
+      <p>Please subscribe to receive news &amp; alerts on our latest activities &amp; events.</p>
+      <div class="subscribe-form">
+        <input type="email" placeholder="Enter your email address"/>
+        <button>Subscribe</button>
+      </div>
+      <div class="foot-socials2">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="#111"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2024 Ohanaeze Ndigbo Worldwide. All Rights Reserved.</div>
+</footer>
+
+<script>
+  // Mobile nav (identical logic to index.html)
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileNavClose = document.getElementById('mobileNavClose');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+
+  mobileNavClose.addEventListener('click', closeMobileNav);
+  mobileNav.addEventListener('click', (e) => { if (e.target === mobileNav) closeMobileNav(); });
+
+  function closeMobileNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  window.closeMobileNav = closeMobileNav;
+</script>
+</body>
+</html>
