@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Leadership Directory – Ohanaeze Ndigbo Worldwide</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Lato', sans-serif; color: #222; background-color: #fff; }
+
+  /* ── GLOBALS & VARIABLES ── */
+  :root {
+    --red: #c0392b;
+    --dark-red: #8b0000;
+    --maroon: #6b0000;
+    --gold: #e2b04a;
+    --black: #1a1a1a;
+    --text: #333;
+    --text-light: #555;
+    --gray-bg: #f7f7f7;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: #1a1a1a;
+    color: #ddd;
+    font-size: 12px;
+    padding: 7px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+  }
+  .topbar .contacts { display: flex; gap: 18px; align-items: center; }
+  .topbar .contacts span { display: flex; align-items: center; gap: 6px; }
+  .topbar .socials { display: flex; gap: 12px; align-items: center; }
+  .topbar .socials a {
+    color: #ccc; text-decoration: none;
+    width: 34px; height: 34px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    transition: background 0.2s, color 0.2s;
+  }
+  .topbar .socials a svg { width: 18px; height: 18px; fill: currentColor; }
+  .topbar .socials a:hover { color: #fff; background: rgba(255,255,255,0.18); }
+
+  /* ── HEADER / NAV ── */
+  .header {
+    background: #fff;
+    padding: 14px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .logo-area { display: flex; align-items: center; gap: 14px; }
+  .logo-area img { width: 62px; height: 62px; object-fit: contain; }
+  .logo-text { line-height: 1.2; }
+  .logo-text .org-name { font-size: 20px; font-weight: 900; color: #1a1a1a; letter-spacing: 0.6px; text-transform: uppercase; }
+  .logo-text .tagline { font-size: 13px; color: #666; font-weight: 600; letter-spacing: 0.35px; }
+
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a {
+    text-decoration: none; font-size: 13px; font-weight: 800;
+    color: #333; letter-spacing: 0.35px; text-transform: uppercase;
+    padding-bottom: 4px; border-bottom: 2px solid transparent;
+    transition: color 0.25s, border-color 0.25s;
+  }
+  nav a.active { color: #c0392b; border-color: #c0392b; }
+  nav a:hover { color: #c0392b; }
+  .btn-join {
+    background: #c0392b; color: #fff !important; padding: 8px 18px;
+    border-radius: 4px; font-size: 11px !important; font-weight: 700 !important;
+    text-transform: uppercase; letter-spacing: 0.4px;
+    border-bottom: none !important; transition: background 0.2s !important;
+  }
+  .btn-join:hover { background: #a93226 !important; }
+
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+    z-index: 200;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: #1a1a1a; border-radius: 2px; transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE NAV OVERLAY ── */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #fff;
+    z-index: 150;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .mobile-nav.open { display: flex; }
+
+  .mobile-nav-header {
+    background: #6b0000;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    min-height: 64px;
+  }
+  .mobile-nav-brand { display: flex; align-items: center; gap: 10px; }
+  .mobile-nav-brand img {
+    width: 44px; height: 44px; object-fit: contain;
+    border-radius: 50%; background: #fff; padding: 2px; flex-shrink: 0;
+  }
+  .mobile-nav-brand-text {
+    color: #fff; font-size: 11.5px; font-weight: 900;
+    text-transform: uppercase; line-height: 1.35; letter-spacing: 0.4px;
+  }
+  .mobile-nav-close {
+    color: #fff; font-size: 22px; cursor: pointer;
+    background: none; border: none; padding: 4px 6px; display: flex; flex-direction: column; gap: 5px; justify-content: center;
+  }
+  .mobile-nav-close .bar { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; }
+  .mobile-nav-links { flex: 1; display: flex; flex-direction: column; padding: 10px 0 4px; background: #fff; }
+  .mobile-nav-links a { color: #6b0000; text-decoration: none; font-size: 15px; font-weight: 500; padding: 11px 22px; display: block; transition: background 0.15s; }
+  .mobile-nav-links a:hover { background: #fdf0f0; color: #8b0000; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    background: #111;
+    min-height: 250px;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-img {
+    position: absolute; inset: 0;
+    background: url('img/6.jpeg') center/cover no-repeat;
+    opacity: 0.25;
+  }
+  .hero-content { position: relative; z-index: 2; padding: 50px 60px; }
+  .hero-accent { width: 40px; height: 4px; background: var(--red); margin-bottom: 20px; }
+  .hero-content h2 { font-size: 42px; font-weight: 900; color: #fff; line-height: 1.1; text-transform: uppercase; }
+  .breadcrumb { margin-top: 15px; font-size: 13px; color: #ccc; display: flex; align-items: center; gap: 8px; }
+  .breadcrumb a { color: var(--red); text-decoration: none; font-weight: 700; }
+
+  /* ── DIRECTORY SECTIONS ── */
+  .directory-section { padding: 60px 60px; }
+  .directory-section:nth-of-type(even) { background-color: var(--gray-bg); }
+  
+  .section-header { text-align: center; max-width: 700px; margin: 0 auto 40px; }
+  .section-title { font-size: 28px; font-weight: 900; color: var(--black); text-transform: uppercase; margin-bottom: 10px; position: relative; display: inline-block; padding-bottom: 12px; }
+  .section-title::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; width: 55px; height: 4px; background: var(--red); }
+  .section-desc { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+
+  /* Grid System (matches look from 03_Executive_Committee.png) */
+  .executors-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .exec-card {
+    background: #fff;
+    border: 1px solid #eef0f2;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .exec-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  
+  .exec-img-box {
+    width: 100%;
+    height: 260px;
+    background-color: #f0f0f0;
+    overflow: hidden;
+  }
+  .exec-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .exec-info { padding: 18px 14px; }
+  .exec-name { font-size: 16px; font-weight: 900; color: #1a1a1a; margin-bottom: 6px; line-height: 1.3; }
+  .exec-position { font-size: 13px; font-weight: 600; color: var(--red); font-style: italic; }
+
+  /* Collapsible Row Setup */
+  .hidden-execs {
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 24px auto 0;
+  }
+  .hidden-execs.show { display: grid; }
+
+  /* Interactive Button Container */
+  .action-container { text-align: center; margin-top: 35px; }
+  .btn-check-more {
+    background: transparent;
+    border: 2px solid var(--red);
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 800;
+    padding: 12px 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    transition: background 0.2s, color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-check-more:hover { background: var(--red); color: #fff; }
+
+  /* ── FOOTER ── */
+  footer { background: #111; color: #bbb; padding: 52px 60px 28px; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 40px; }
+  .footer-brand .foot-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .footer-brand .foot-logo img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; background: #fff; }
+  .footer-brand .foot-org { font-size: 12px; font-weight: 900; color: #fff; text-transform: uppercase; }
+  .footer-brand .foot-tag { font-size: 10px; color: #888; }
+  .follow-label { font-size: 12px; font-weight: 700; color: var(--gold); margin: 20px 0 10px; text-transform: uppercase; }
+  .foot-socials { display: flex; gap: 10px; }
+  .foot-socials a { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #444; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; }
+  .foot-socials a svg { width: 16px; height: 16px; fill: currentColor; }
+  .foot-socials a:hover { background: var(--red); border-color: var(--red); }
+  footer h4 { color: var(--gold); font-size: 13px; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  footer ul li a { color: #bbb; text-decoration: none; font-size: 13px; font-weight: 500; }
+  footer ul li a:hover { color: #fff; }
+  .subscribe-area p { font-size: 12px; color: #888; margin-bottom: 14px; line-height: 1.6; }
+  .subscribe-form { display: flex; }
+  .subscribe-form input { flex: 1; padding: 10px 12px; border: 1px solid #333; background: #1e1e1e; color: #fff; font-size: 12px; outline: none; border-radius: 3px 0 0 3px; }
+  .subscribe-form button { background: var(--gold); color: #111; border: none; padding: 10px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer; border-radius: 0 3px 3px 0; }
+  .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 22px; text-align: center; font-size: 12px; color: #555; }
+
+  /* ── MEDIA QUERIES & RESPONSIVE ADJUSTMENTS ── */
+  @media (max-width: 1024px) {
+    .executors-grid, .hidden-execs.show { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  }
+  @media (max-width: 900px) {
+    nav { display: none; }
+    .hamburger { display: flex; }
+    .topbar { padding: 6px 16px; font-size: 11px; }
+    .header { padding: 12px 16px; }
+    .logo-area img { width: 48px; height: 48px; }
+    .logo-text .org-name { font-size: 13px; }
+    .directory-section { padding: 44px 24px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+
+  /* ── SPECIFIC TWO TAB / TWO COLUMN MOBILE VIEW REQUIREMENT ── */
+  @media (max-width: 600px) {
+    .executors-grid, .hidden-execs.show { 
+      grid-template-columns: repeat(2, 1fr); /* Forms 2 distinct tabs side-by-side per row */
+      gap: 12px; /* Tight compact spacing suitable for mobile devices */
+    }
+    .exec-img-box {
+      height: 170px; /* Reduced box height so mobile view looks perfectly balanced */
+    }
+    .exec-info {
+      padding: 10px 6px;
+    }
+    .exec-name {
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+    .exec-position {
+      font-size: 11px;
+    }
+    .directory-section { 
+      padding: 30px 12px; 
+    }
+    .section-title {
+      font-size: 22px;
+    }
+    .topbar { display: none; }
+    .logo-text .tagline { display: none; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="contacts">
+    <span>📞 +2348023589992</span>
+    <span>✉ info@ohanaeze-aforumma.org</span>
+  </div>
+  <div class="socials">
+    <a href="#" aria-label="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.5 9.9v-7h-2.6v-2.9h2.6V9.3c0-2.6 1.6-4 3.9-4 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6v1.9h2.9l-.5 2.9h-2.4v7C18.3 21.1 22 17 22 12z"/></svg>
+    </a>
+    <a href="#" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M4 8h4v12H4V8zm2-4a2 2 0 110 4 2 2 0 010-4zm6 4h3.6v1.6h.1c.5-.9 1.7-1.8 3.5-1.8 3.7 0 4.4 2.4 4.4 5.5V24h-4V14.5c0-2 0-4.5-2.8-4.5-2.8 0-3.2 2.2-3.2 4.4V24h-4V8z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-area">
+    <img id="logo-img" src="img/logo.jpeg" alt="Ohanaeze Logo">
+    <div class="logo-text">
+      <div class="org-name">Ohanaeze Ndigbo<br>Worldwide</div>
+      <div class="tagline">Unity, Peace and Progress</div>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="executives.html" class="active">Executives</a>
+    <a href="press-releases.html">Press Release</a>
+    <a href="constitution.html">Constitution</a>
+    <a href="state-chapters.html">State Chapter</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="signup.html" class="btn-join">Join Ohanaeze</a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <div class="mobile-nav-brand">
+      <img id="mob-nav-logo" src="img/logo.jpeg" alt="Ohanaeze Logo">
+      <div class="mobile-nav-brand-text">Ohanaeze Ndigbo<br>Worldwide</div>
+    </div>
+    <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+  <div class="mobile-nav-links">
+    <a href="index.html" onclick="closeMobileNav()">Home</a>
+    <a href="about.html" onclick="closeMobileNav()">About Us</a>
+    <a href="executives.html" onclick="closeMobileNav()">Executives</a>
+    <a href="constitution.html" onclick="closeMobileNav()">Constitution</a>
+    <a href="contact.html" onclick="closeMobileNav()">Contact Us</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <div class="hero-accent"></div>
+    <h2>Leadership Directory</h2>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span style="color:#aaa;">›</span>
+      <span style="color:#ccc;">Leadership Directory</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: STATE EXECUTIVES -->
+<section class="directory-section">
+  <div class="section-header">
+    <h3 class="section-title">State Executives</h3>
+    <p class="section-desc">Elected leaders overseeing affairs across the core Igbo administrative zones and regions.</p>
+  </div>
+  
+  <div class="executors-grid">
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/exec1.jpeg" alt="Executive 1"></div>
+      <div class="exec-info">
+        <div class="exec-name">Chief Emmanuel Iwuanyanwu</div>
+        <div class="exec-position">President General</div>
+      </div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/exec2.jpeg" alt="Executive 2"></div>
+      <div class="exec-info">
+        <div class="exec-name">Amb. Joe Keshi</div>
+        <div class="exec-position">Deputy President General</div>
+      </div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/exec3.jpeg" alt="Executive 3"></div>
+      <div class="exec-info">
+        <div class="exec-name">Chief Okey Emuchay</div>
+        <div class="exec-position">Secretary General</div>
+      </div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/exec4.jpeg" alt="Executive 4"></div>
+      <div class="exec-info">
+        <div class="exec-name">Chief Damian Okeke-Ogene</div>
+        <div class="exec-position">Deputy Secretary General</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden-execs" id="stateHidden">
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/exec5.jpeg" alt="Executive 5"></div>
+      <div class="exec-info"><div class="exec-name">Chief Chiedozie Alex Ogbonnia</div><div class="exec-position">National Publicity Secretary</div></div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/exec6.jpeg" alt="Executive 6"></div>
+      <div class="exec-info"><div class="exec-name">Dr. Chukwuemeka Ogbesi</div><div class="exec-position">Treasurer General</div></div>
+    </div>
+  </div>
+
+  <div class="action-container">
+    <button class="btn-check-more" onclick="toggleSection('stateHidden', this)">
+      <span>Check More</span>
+    </button>
+  </div>
+</section>
+
+<!-- SECTION 2: IGBO TRADERS' LEADERS -->
+<section class="directory-section">
+  <div class="section-header">
+    <h3 class="section-title">Igbo Traders' Leaders</h3>
+    <p class="section-desc">Pillars guiding commerce, marketplace partnerships, and regional socio-economic growth.</p>
+  </div>
+  
+  <div class="executors-grid">
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/trade1.jpeg" alt="Trader 1"></div>
+      <div class="exec-info"><div class="exec-name">Chief Nnamdi Nura</div><div class="exec-position">Chairman, Market Council</div></div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/trade2.jpeg" alt="Trader 2"></div>
+      <div class="exec-info"><div class="exec-name">Mazi Uzor Okoye</div><div class="exec-position">Vice President, Alliance</div></div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/trade3.jpeg" alt="Trader 3"></div>
+      <div class="exec-info"><div class="exec-name">Chief Jude Anyanwu</div><div class="exec-position">Financial Secretary</div></div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/trade4.jpeg" alt="Trader 4"></div>
+      <div class="exec-info"><div class="exec-name">Mazi Chukwuma Kalu</div><div class="exec-position">Liaison Officer</div></div>
+    </div>
+  </div>
+
+  <div class="hidden-execs" id="tradersHidden">
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/trade5.jpeg" alt="Trader 5"></div>
+      <div class="exec-info"><div class="exec-name">Chief Oliver Igwe</div><div class="exec-position">Welfare Director</div></div>
+    </div>
+  </div>
+
+  <div class="action-container">
+    <button class="btn-check-more" onclick="toggleSection('tradersHidden', this)">
+      <span>Check More</span>
+    </button>
+  </div>
+</section>
+
+<!-- SECTION 3: WOMEN'S WING LEADERS -->
+<section class="directory-section">
+  <div class="section-header">
+    <h3 class="section-title">Women's Wing Leaders</h3>
+    <p class="section-desc">Empowering communities, preserving family values, and leading societal integration.</p>
+  </div>
+  
+  <div class="executors-grid">
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/women1.jpeg" alt="Woman Leader 1"></div>
+      <div class="exec-info"><div class="exec-name">Lolo Ngozi Anichebe</div><div class="exec-position">National Woman Leader</div></div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/women2.jpeg" alt="Woman Leader 2"></div>
+      <div class="exec-info"><div class="exec-name">Dr. Mrs. Ifeoma Maduka</div><div class="exec-position">Deputy Woman Leader</div></div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/women3.jpeg" alt="Woman Leader 3"></div>
+      <div class="exec-info"><div class="exec-name">Chief Iyom Amaka Obi</div><div class="exec-position">National Secretary</div></div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/women4.jpeg" alt="Woman Leader 4"></div>
+      <div class="exec-info"><div class="exec-name">Lady Beatrice Okafor</div><div class="exec-position">Publicity Coordinator</div></div>
+    </div>
+  </div>
+
+  <div class="hidden-execs" id="womenHidden">
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/women5.jpeg" alt="Woman Leader 5"></div>
+      <div class="exec-info"><div class="exec-name">Dr. Ebere Uzor</div><div class="exec-position">Legal Adviser</div></div>
+    </div>
+  </div>
+
+  <div class="action-container">
+    <button class="btn-check-more" onclick="toggleSection('womenHidden', this)">
+      <span>Check More</span>
+    </button>
+  </div>
+</section>
+
+<!-- SECTION 4: YOUTH WING LEADERS -->
+<section class="directory-section">
+  <div class="section-header">
+    <h3 class="section-title">Youth Wing Leaders</h3>
+    <p class="section-desc">Mobilizing structure, technical mentorship, and driving generational advocacy.</p>
+  </div>
+  
+  <div class="executors-grid">
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/youth1.jpeg" alt="Youth Leader 1"></div>
+      <div class="exec-info"><div class="exec-name">Comrade Chukwuma Okpala</div><div class="exec-position">National Youth Leader</div></div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/youth2.jpeg" alt="Youth Leader 2"></div>
+      <div class="exec-info"><div class="exec-name">Engr. Tochukwu Nwachukwu</div><div class="exec-position">Deputy Youth Leader</div></div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/youth3.jpeg" alt="Youth Leader 3"></div>
+      <div class="exec-info"><div class="exec-name">Mazi Chinedu Ifeanyi</div><div class="exec-position">Secretary General (Youth)</div></div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/youth4.jpeg" alt="Youth Leader 4"></div>
+      <div class="exec-info"><div class="exec-name">Comrade Kingsley Egwu</div><div class="exec-position">Public Relations Officer</div></div>
+    </div>
+  </div>
+
+  <div class="hidden-execs" id="youthHidden">
+    <div class="exec-card">
+      <div class="exec-img-box"><img src="img/youth5.jpeg" alt="Youth Leader 5"></div>
+      <div class="exec-info"><div class="exec-name">Mazi Somtochukwu Obi</div><div class="exec-position">Organizing Secretary</div></div>
+    </div>
+  </div>
+
+  <div class="action-container">
+    <button class="btn-check-more" onclick="toggleSection('youthHidden', this)">
+      <span>Check More</span>
+    </button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="foot-logo">
+        <img id="foot-logo-img" src="img/logo.jpeg" alt="Ohanaeze Logo">
+        <div>
+          <div class="foot-org">Ohanaeze Ndigbo<br>Worldwide</div>
+          <div class="foot-tag">Unity, Peace and Progress</div>
+        </div>
+      </div>
+      <div class="follow-label">Follow Us</div>
+      <div class="foot-socials">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="executives.html">Executives</a></li>
+        <li><a href="constitution.html">Constitution</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Departments</h4>
+      <ul>
+        <li><a href="youth-wing.html">Youth Wing</a></li>
+        <li><a href="culture.html">Culture</a></li>
+        <li><a href="diaspora-affairs.html">Diaspora Affairs</a></li>
+      </ul>
+    </div>
+    <div class="subscribe-area">
+      <h4>Stay Connected</h4>
+      <p>Please subscribe to receive news &amp; alerts on our latest activities &amp; events.</p>
+      <div class="subscribe-form">
+        <input type="email" placeholder="Enter your email address"/>
+        <button>Subscribe</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Ohanaeze Ndigbo Worldwide. All Rights Reserved. | Developed by #YAPI</div>
+</footer>
+
+<script>
+  // Mobile Navigation toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileNavClose = document.getElementById('mobileNavClose');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+  if (mobileNavClose) {
+    mobileNavClose.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+    });
+  }
+
+  // Interactive dynamic reveal function for "Check More" elements
+  function toggleSection(sectionId, buttonElement) {
+    const section = document.getElementById(sectionId);
+    section.classList.toggle('show');
+    
+    if (section.classList.contains('show')) {
+      buttonElement.querySelector('span').textContent = 'Show Less';
+    } else {
+      buttonElement.querySelector('span').textContent = 'Check More';
+    }
+  }
+</script>
+</body>
+</html>
