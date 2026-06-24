@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ohanaeze Ndigbo Worldwide - The Apex Igbo Socio-Cultural Organization</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Inter:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #8B0000;
+    --red-bright: #C0392B;
+    --gold: #D4A017;
+    --gold-light: #F0C040;
+    --black: #111111;
+    --dark: #1a1a1a;
+    --white: #ffffff;
+    --gray-light: #f5f5f5;
+    --gray: #666666;
+    --gray-mid: #999;
+    --border: #e0e0e0;
+  }
+
+  body { font-family: 'Inter', sans-serif; color: var(--black); background: #fff; font-size: 14px; line-height: 1.6; }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; height: auto; }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--red);
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 0;
+  }
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .topbar-left { font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+  .topbar-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .topbar-right a { color: #fff; display: flex; align-items: center; gap: 5px; }
+  .topbar-right a:hover { color: var(--gold-light); }
+  .topbar-socials { display: flex; gap: 12px; }
+  .topbar-socials a { color: #fff; font-size: 13px; }
+
+  /* ── PROFESSIONAL NAVBAR WITH EDGE LAYOUT ── */
+  .navbar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .navbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 85px;
+    position: relative;
+  }
+  
+  .logo { 
+    display: flex; 
+    align-items: center; 
+    gap: 14px; 
+    z-index: 1002; 
+    flex-shrink: 0;
+  }
+  .logo-img {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .logo-img svg { width: 40px; height: 40px; }
+  
+  .logo-text {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .logo-text h1 { 
+    font-size: 14px; 
+    font-weight: 800; 
+    color: var(--red); 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px; 
+  }
+  .logo-text p { 
+    font-size: 10px; 
+    color: var(--gray); 
+    font-style: italic; 
+    border-left: 1px solid var(--border);
+    padding-left: 8px;
+  }
+
+  .menu-toggle-btn {
+    display: none;
+    font-size: 24px;
+    color: var(--red);
+    cursor: pointer;
+    z-index: 1002;
+  }
+  #menu-checkbox { display: none; }
+  
+  .nav-container { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    flex-grow: 1;
+    margin-left: 30px;
+  }
+  .nav-links-wrapper { 
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+    list-style: none;
+    margin-left: auto; 
+    margin-right: 24px;
+  }
+  .nav-link {
+    font-size: 12px; 
+    font-weight: 600; 
+    color: #333;
+    padding: 10px 0; 
+    text-transform: uppercase; 
+    letter-spacing: 0.8px;
+    position: relative; 
+    transition: color 0.25s ease;
+    white-space: nowrap;
+  }
+  .nav-link:hover, .nav-link.active { color: var(--red); }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--red);
+    transition: width 0.25s ease;
+  }
+  .nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+  }
+
+  .nav-utilities {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .nav-search-form {
+    display: flex;
+    align-items: center;
+    background: var(--gray-light);
+    border: 1px solid var(--border);
+    border-radius: 4px; 
+    padding: 4px 6px 4px 12px;
+    width: 190px;
+    transition: all 0.25s ease;
+  }
+  .nav-search-form:focus-within {
+    border-color: var(--red);
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(139, 0, 0, 0.08);
+  }
+  .nav-search-form input {
+    border: none;
+    background: transparent;
+    font-size: 12px;
+    outline: none;
+    color: var(--black);
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+  }
+  .nav-search-form input::placeholder { color: #888; }
+  .nav-search-btn {
+    background: var(--red);
+    color: #fff;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    transition: background 0.2s;
+  }
+  .nav-search-btn:hover { background: var(--black); }
+
+  .btn-join {
+    background: var(--red); color: #fff;
+    padding: 10px 18px; border-radius: 3px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    transition: background 0.2s;
+    display: inline-block; text-align: center; white-space: nowrap;
+  }
+  .btn-join:hover { background: #6a0000; }
+
+  /* ── BUSINESS ADVERTISEMENT BANNER (HERO) ── */
+  @keyframes heroScroll {
+    0%, 100% { background-image: linear-gradient(to right, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.4) 100%), url(img/1.jpeg); }
+    50% { background-image: linear-gradient(to right, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.4) 100%), url(img/header.png); }
+  }
+  .hero {
+    position: relative; min-height: 480px;
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    display: flex; align-items: center; overflow: hidden;
+    animation: heroScroll 16s infinite ease-in-out;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; padding: 60px 20px; display: flex; align-items: center; width: 100%; }
+  .hero-content { max-width: 620px; z-index: 2; }
+  .hero-eyebrow { font-size: 11px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: 46px; line-height: 1.15; color: #fff; margin-bottom: 18px; font-weight: 900; }
+  .hero-title span { color: var(--gold); display: block; font-size: 38px; margin-top: 5px; }
+  .hero-desc { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 28px; max-width: 520px; }
+  .hero-btns { display: flex; }
+  .btn-primary { background: var(--gold); color: var(--black); padding: 14px 32px; border-radius: 3px; font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; transition: background 0.2s; border: none; cursor: pointer; }
+  .btn-primary:hover { background: var(--gold-light); }
+
+  /* ── PRESIDENT WELCOME SPEECH ── */
+  .president-speech { background: var(--gray-light); padding: 60px 20px; border-bottom: 1px solid var(--border); }
+  .speech-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: start; }
+  
+  .president-portrait-box { 
+    position: relative; 
+    border: 4px solid #fff; 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
+    background: #fff; 
+    border-radius: 4px; 
+    overflow: hidden; 
+    width: 240px;
+    flex-shrink: 0;
+  }
+  .president-portrait-box img { width: 100%; height: 280px; object-fit: cover; }
+  .president-caption { background: var(--red); color: #fff; padding: 12px; text-align: center; }
+  .president-caption h4 { font-size: 13px; font-weight: 700; letter-spacing: 0.3px; margin-bottom: 2px; line-height: 1.3; }
+  .president-caption p { font-size: 10px; color: var(--gold); text-transform: uppercase; font-weight: 600; letter-spacing: 0.8px; }
+  
+  .speech-text-container { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+  .speech-eyebrow { font-size: 11px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+  .speech-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; line-height: 1.2; color: var(--black); margin-bottom: 20px; }
+  .speech-excerpt { font-size: 15px; color: #333; line-height: 1.7; margin-bottom: 15px; }
+  
+  #speech-toggle { display: none; }
+  .speech-full-content { display: none; font-size: 15px; color: #333; line-height: 1.7; }
+  .btn-read-more, .btn-read-less { display: inline-flex; align-items: center; gap: 8px; color: var(--red); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-top: 10px; }
+  .btn-read-less { display: none; }
+  #speech-toggle:checked ~ .speech-full-content { display: block; }
+  #speech-toggle:checked ~ .btn-read-more { display: none; }
+  #speech-toggle:checked ~ .btn-read-less { display: inline-flex; }
+
+  /* ── PILLARS ── */
+  .pillars { background: #fff; border-bottom: 1px solid var(--border); padding: 40px 20px; }
+  .pillars-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+  .pillar { text-align: center; padding: 10px; }
+  .pillar-icon { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--red); margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; color: var(--red); font-size: 20px; }
+  .pillar h3 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .pillar p { font-size: 11.5px; color: var(--gray); line-height: 1.5; }
+
+  /* ── 4-COLUMN UNIFIED CONTENT GRID ── */
+  .content-master-grid {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .grid-col-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 2px solid var(--red); padding-bottom: 6px; }
+  .grid-col-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
+  .grid-col-title i { color: var(--red); font-size: 12px; }
+  .view-all-link { font-size: 11px; font-weight: 600; color: var(--red); }
+
+  /* Column 1: News Styling */
+  .news-box-item { padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .news-box-item:last-child { border-bottom: none; }
+  .news-tag { background: var(--red); color: #fff; font-size: 9px; font-weight: 700; padding: 2px 5px; display: inline-block; margin-bottom: 6px; border-radius: 2px; text-transform: uppercase; }
+  .news-box-item h4 { font-size: 12.5px; font-weight: 700; line-height: 1.4; color: var(--black); margin-bottom: 4px; }
+  .news-box-item p { font-size: 11.5px; color: var(--gray); line-height: 1.4; }
+
+  /* Column 2: Events Styling */
+  .event-box-item { display: flex; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .event-box-item:last-child { border-bottom: none; }
+  .event-mini-date { background: var(--gray-light); border-left: 3px solid var(--red); padding: 4px 8px; text-align: center; min-width: 45px; height: 42px; display: flex; flex-direction: column; justify-content: center; }
+  .event-mini-date .day { font-size: 14px; font-weight: 800; color: var(--red); line-height: 1; }
+  .event-mini-date .month { font-size: 9px; text-transform: uppercase; font-weight: 600; color: var(--black); }
+  .event-box-desc h4 { font-size: 12px; font-weight: 700; line-height: 1.3; margin-bottom: 2px; }
+  .event-box-desc p { font-size: 11px; color: var(--gray); }
+
+  /* Columns 3 & 4: Membership Ad Panels */
+  .ad-card {
+    background: var(--red);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px 20px;
+    background-size: cover;
+    background-position: center;
+  }
+  .ad-card.diaspora-bg { background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80'); }
+  .ad-card.home-bg { background-image: url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400&q=80'); }
+  .ad-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(139,0,0,0.3) 0%, rgba(15,0,0,0.95) 100%); }
+  .ad-card > * { position: relative; z-index: 1; }
+  .ad-card h3 { font-family: 'Playfair Display', serif; font-size: 15px; color: #fff; line-height: 1.2; margin-bottom: 6px; }
+  .ad-card h3 strong { color: var(--gold); font-size: 24px; display: block; text-transform: uppercase; }
+  .ad-card p { font-size: 11.5px; color: rgba(255,255,255,0.85); margin-bottom: 16px; line-height: 1.4; }
+  .btn-ad-join { align-self: flex-start; border: 1.5px solid #fff; color: #fff; padding: 8px 16px; border-radius: 2px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s; }
+  .btn-ad-join:hover { background: #fff; color: var(--red); }
+
+  /* ── MISSION / VISION ── */
+  .mission-vision { background: var(--gray-light); padding: 50px 20px; }
+  .mv-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .mv-card { display: flex; gap: 20px; align-items: flex-start; }
+  .mv-icon { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--red); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--red); }
+  .mv-card h3 { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: var(--red); }
+  .mv-card p { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+  /* ── IMPACT STATS ── */
+  .impact { background: var(--black); padding: 60px 20px; }
+  .impact-header { text-align: center; margin-bottom: 40px; }
+  .impact-header h2 { font-family: 'Playfair Display', serif; font-size: 32px; color: #fff; letter-spacing: 3px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .impact-header h2::before, .impact-header h2::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold); }
+  .impact-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+  .impact-card { text-align: center; padding: 10px; }
+  .impact-card i { font-size: 36px; color: var(--gold); margin-bottom: 14px; }
+  .impact-card .num { font-family: 'Playfair Display', serif; font-size: 36px; color: #fff; font-weight: 900; line-height: 1; }
+  .impact-card .label { font-size: 12px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+
+  /* ── CTA BAND ── */
+  .cta-band { background: var(--red); padding: 60px 20px; position: relative; overflow: hidden; background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=80'); background-size: cover; background-position: top center; }
+  .cta-band::before { content: ''; position: absolute; inset: 0; background: rgba(139,0,0,0.88); }
+  .cta-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; gap: 40px; }
+  .cta-text h2 { font-family: 'Playfair Display', serif; font-size: 32px; color: #fff; margin-bottom: 10px; }
+  .cta-text p { font-size: 14px; color: rgba(255,255,255,0.85); max-width: 420px; }
+  .btn-member { background: var(--gold); color: var(--black); padding: 14px 32px; border-radius: 3px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; display: flex; align-items: center; gap: 8px; flex-shrink: 0; transition: background 0.2s; }
+  .btn-member:hover { background: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer { background: #111; padding: 60px 20px 30px; }
+  .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr 1.8fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid #333; }
+  .footer-brand h3 { font-size: 13px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .footer-brand p.sub { font-size: 11px; color: var(--gold); font-style: italic; margin-bottom: 14px; }
+  .footer-brand .desc { font-size: 12px; color: #888; line-height: 1.7; margin-bottom: 16px; }
+  .footer-socials { display: flex; gap: 10px; }
+  .footer-socials a { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #444; display: flex; align-items: center; justify-content: center; color: #888; font-size: 13px; transition: all 0.2s; }
+  .footer-socials a:hover { background: var(--red); border-color: var(--red); color: #fff; }
+  .footer-col h4 { font-size: 12px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .footer-col ul li a { font-size: 12px; color: #888; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .contact-item { display: flex; gap: 10px; margin-bottom: 12px; }
+  .contact-item i { color: var(--red); font-size: 13px; margin-top: 2px; flex-shrink: 0; }
+  .contact-item span { font-size: 12px; color: #888; line-height: 1.5; }
+  .newsletter-form p { font-size: 12px; color: #888; margin-bottom: 12px; line-height: 1.5; }
+  .nl-input-group { display: flex; flex-direction: column; gap: 8px; }
+  .nl-input-group input { padding: 10px 12px; background: #222; border: 1px solid #444; color: #fff; font-size: 12px; border-radius: 3px; width: 100%; outline: none; }
+  .btn-subscribe { background: var(--red); color: #fff; padding: 10px; border: none; border-radius: 3px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background 0.2s; width: 100%; }
+  .footer-bottom { max-width: 1200px; margin: 24px auto 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+  .footer-bottom p { font-size: 11px; color: #666; }
+
+  /* ── RESPONSIVE MEDIA BREAKPOINTS ── */
+
+  @media (max-width: 1150px) {
+    .nav-links-wrapper { gap: 12px; margin-right: 14px; }
+    .nav-search-form { width: 150px; }
+    .logo-text h1 { font-size: 12px; }
+    .logo-text p { font-size: 9px; }
+  }
+
+  @media (max-width: 1024px) {
+    .content-master-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .speech-inner { grid-template-columns: 220px 1fr; gap: 24px; }
+    .pillars-inner { grid-template-columns: repeat(3, 1fr); }
+    .impact-grid { grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 950px) {
+    .logo-text { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .logo-text p { border-left: none; padding-left: 0; }
+    .nav-links-wrapper { gap: 8px; }
+    .nav-link { font-size: 11px; }
+  }
+
+  @media (max-width: 768px) {
+    .topbar-inner { justify-content: center; text-align: center; flex-direction: column; }
+
+    .menu-toggle-btn { display: block; margin-left: auto; }
+    .nav-container {
+      display: none; 
+      position: absolute; 
+      top: 85px; 
+      left: 0; 
+      right: 0; 
+      background: #fff; 
+      border-bottom: 2px solid var(--red); 
+      flex-direction: column; 
+      padding: 25px; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+      z-index: 1001; 
+      gap: 20px;
+      margin-left: 0;
+    }
+    .nav-links-wrapper { flex-direction: column; width: 100%; gap: 12px; margin-right: 0; }
+    .nav-link { width: 100%; padding: 8px; text-align: center; }
+    .nav-link::after { display: none; }
+    
+    .nav-utilities { flex-direction: column; width: 100%; gap: 14px; }
+    .nav-search-form { width: 100%; justify-content: space-between; padding: 6px 6px 6px 16px; }
+    .btn-join { width: 100%; }
+    #menu-checkbox:checked ~ .nav-container { display: flex; }
+
+    .hero { min-height: auto; }
+    .hero-inner { padding: 50px 20px; }
+    .hero-title { font-size: 32px; }
+    .hero-title span { font-size: 26px; }
+
+    /* CRITICAL CHANGE: Keeps picture and speech side-by-side in 2-column view even on mobile tablets/screens */
+    .speech-inner { 
+      grid-template-columns: 140px 1fr; 
+      gap: 16px; 
+      text-align: left;
+    }
+    .president-portrait-box { 
+      width: 140px; 
+    }
+    .president-portrait-box img {
+      height: 170px;
+    }
+    .president-caption {
+      padding: 6px;
+    }
+    .president-caption h4 {
+      font-size: 10px;
+    }
+    .president-caption p {
+      font-size: 8px;
+    }
+    .speech-title {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .speech-excerpt, .speech-full-content p {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .mv-inner { grid-template-columns: 1fr; gap: 30px; }
+    .cta-inner { flex-direction: column; text-align: center; gap: 24px; }
+    .btn-member { width: 100%; justify-content: center; }
+
+    .content-master-grid { 
+      grid-template-columns: 1fr 1fr !important; 
+      gap: 14px; 
+    }
+    .ad-card { min-height: 240px; padding: 16px 14px; }
+    .ad-card h3 { font-size: 12px; }
+    .ad-card h3 strong { font-size: 16px; }
+    .ad-card p { font-size: 10.5px; line-height: 1.3; margin-bottom: 12px; }
+    .btn-ad-join { padding: 6px 12px; font-size: 10px; }
+  }
+
+  @media (max-width: 480px) {
+    /* Maintained pristine 2-column view safely on ultra-small mobile displays */
+    .speech-inner {
+      grid-template-columns: 105px 1fr;
+      gap: 12px;
+    }
+    .president-portrait-box {
+      width: 105px;
+    }
+    .president-portrait-box img {
+      height: 130px;
+    }
+    .speech-title {
+      font-size: 16px;
+    }
+    .speech-eyebrow {
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+
+    .hero-title { font-size: 26px; }
+    .hero-title span { font-size: 20px; }
+    .btn-primary { width: 100%; justify-content: center; }
+    .pillars-inner { grid-template-columns: 1fr; }
+    .impact-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .ad-card p { display: none; }
+    .news-box-item p { display: none; }
+  }
+</style>
+</head>
+<body>
+
+
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="logo">
+      <div class="logo-img">
+        <img src="img/logo.jpeg" alt="Ohanaeze Ndigbo Logo">
+      </div>
+      <div class="logo-text">
+        <h1>Ohanaeze Ndigbo Worldwide</h1>
+        <p>Apex Socio-Cultural Organization</p>
+      </div>
+    </div>
+
+    <input type="checkbox" id="menu-checkbox">
+    <label for="menu-checkbox" class="menu-toggle-btn">
+      <i class="fas fa-bars"></i>
+    </label>
+
+    <div class="nav-container">
+      <div class="nav-links-wrapper">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="leadership.html" class="nav-link">Leadership</a>
+        <a href="structure.html" class="nav-link">Our Structure</a>
+        <a href="news.html" class="nav-link">News &amp; Events</a>
+        <a href="contact.html" class="nav-link">Contact US</a>
+      </div>
+
+      <div class="nav-utilities">
+        <form class="nav-search-form" action="#" method="GET">
+          <input type="text" name="member_search" placeholder="Search fellow members...">
+          <button type="submit" class="nav-search-btn" aria-label="Search Member">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+
+        <a href="signup.html" class="btn-join">Join Ohanaeze</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO WITH AUTOMATIC SCROLLING GRADIENT CAROUSEL -->
+<section class="hero">
+  <div class="hero-arrow left"><i class="fas fa-chevron-left"></i></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Welcome to Ohanaeze Ndigbo Worldwide</p>
+      <h1 class="hero-title">
+        Promoting Unity,<br>
+        Preserving Heritage,<br>
+        <span>Building the Future</span>
+      </h1>
+      <p class="hero-desc">Ohanaeze Ndigbo Worldwide is the apex Igbo socio-cultural organization dedicated to the unity, welfare and cultural heritage of the Igbo people at home and in the diaspora.</p>
+      <div class="hero-btns">
+        <a href="about.html" class="btn-primary">About Ohanaeze <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <span class="active"></span><span></span><span></span>
+  </div>
+  <div class="hero-arrow right"><i class="fas fa-chevron-right"></i></div>
+</section>
+
+<section class="president-speech">
+  <div class="speech-inner">
+    <div class="president-portrait-box">
+      <img src="img/2.jpeg" alt="President General">
+      <div class="president-caption">
+        <h4>Chief (Dr.) Emmanuel Iwuanyanwu</h4>
+        <p>President-General</p>
+      </div>
+    </div>
+    <div class="speech-text-container">
+      <p class="speech-eyebrow">A Message From The President-General</p>
+      <h2 class="speech-title">Ndi Igbo, Welcome To Our Global Umunna</h2>
+      <p class="speech-excerpt">
+        It is with great humility, a profound sense of responsibility, and deep love for our rich cultural inheritance that I welcome you to the official home of Ohanaeze Ndigbo Worldwide. Our journey across history has proven one consistent truth: our exceptional resilience, vibrant industry, and communal bond remain the pillars of our identity.
+      </p>
+
+      <input type="checkbox" id="speech-toggle">
+      <div class="speech-full-content">
+        <p>
+          Today, we stand at a unique historical crossroads. The world is evolving at a breakneck pace, and with these global changes come fresh hurdles and historic openings. As the apex socio-cultural organization safeguarding Igbo interests, Ohanaeze Ndigbo is firmly dedicated to fostering economic independence across our homelands, creating stable networks for youth development, and preserving our local arts and dialects for generations yet unborn.
+        </p>
+        <p><strong>Ka Chineke gozie Ndigbo.</strong></p>
+      </div>
+
+      <label for="speech-toggle" class="btn-read-more">Read Full Speech <i class="fas fa-chevron-down"></i></label>
+      <label for="speech-toggle" class="btn-read-less">Read Less <i class="fas fa-chevron-up"></i></label>
+    </div>
+  </div>
+</section>
+
+<div class="pillars">
+  <div class="pillars-inner">
+    <div class="pillar">
+      <div class="pillar-icon"><i class="fas fa-handshake"></i></div>
+      <h3>Unity</h3>
+      <p>Promoting unity among Ndigbo worldwide.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon"><i class="fas fa-landmark"></i></div>
+      <h3>Heritage</h3>
+      <p>Preserving and projecting Igbo culture and values.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon"><i class="fas fa-bullhorn"></i></div>
+      <h3>Advocacy</h3>
+      <p>Advocating for the rights and interests of the Igbo people.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon"><i class="fas fa-chart-line"></i></div>
+      <h3>Development</h3>
+      <p>Supporting development initiatives in our communities.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon"><i class="fas fa-globe"></i></div>
+      <h3>Diaspora</h3>
+      <p>Connecting Ndigbo across the diaspora.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon"><i class="fas fa-user-graduate"></i></div>
+      <h3>Youth Wing</h3>
+      <p>Empowering the next generation of Igbo leaders.</p>
+    </div>
+  </div>
+</div>
+
+<section class="content-master-grid">
+  <div class="grid-column-box">
+    <div class="grid-col-header">
+      <span class="grid-col-title"><i class="fas fa-newspaper"></i> Latest News</span>
+      <a href="#" class="view-all-link">More</a>
+    </div>
+    <div class="news-box-item">
+      <span class="news-tag">Updates</span>
+      <h4>Ohanaeze Calls for Communal Dialogue</h4>
+      <p>President General urges structured systems for peace and growth.</p>
+    </div>
+    <div class="news-box-item">
+      <span class="news-tag">Summit</span>
+      <h4>National Integration Talks Begin</h4>
+      <p>Discussions focus on economic synergy in the Southeast zones.</p>
+    </div>
+  </div>
+
+  <div class="grid-column-box">
+    <div class="grid-col-header">
+      <span class="grid-col-title"><i class="fas fa-calendar-alt"></i> Events</span>
+      <a href="#" class="view-all-link">All</a>
+    </div>
+    <div class="event-box-item">
+      <div class="event-mini-date">
+        <span class="day">21</span>
+        <span class="month">Jun</span>
+      </div>
+      <div class="event-box-desc">
+        <h4>Cultural Fiesta</h4>
+        <p>Enugu Centre, 10 AM</p>
+      </div>
+    </div>
+    <div class="event-box-item">
+      <div class="event-mini-date">
+        <span class="day">05</span>
+        <span class="month">Aug</span>
+      </div>
+      <div class="event-box-desc">
+        <h4>Global Igbo Day</h4>
+        <p>Worldwide broadcast celebrations</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ad-card diaspora-bg">
+    <h3>OUR STRENGTH LIES IN OUR <strong>UNITY</strong></h3>
+    <p>Join over 40+ active international chapters. Safeguard our shared global corporate prosperity.</p>
+    <a href="#" class="btn-ad-join">Diaspora Registry</a>
+  </div>
+
+  <div class="ad-card home-bg">
+    <h3>CHAMPIONING IGBO <strong>PROGRESS</strong></h3>
+    <p>Secure your community standing. Partner with local development boards to enact lasting change.</p>
+    <a href="#" class="btn-ad-join">Home Registry</a>
+  </div>
+</section>
+
+<section class="mission-vision">
+  <div class="mv-inner">
+    <div class="mv-card">
+      <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
+      <div>
+        <h3>Our Mission</h3>
+        <p>To promote the unity, welfare and cultural heritage of the Igbo people through advocacy, development and inclusive engagement.</p>
+      </div>
+    </div>
+    <div class="mv-card">
+      <div class="mv-icon"><i class="far fa-eye"></i></div>
+      <div>
+        <h3>Our Vision</h3>
+        <p>A united Igbo nation, proudly preserving our heritage and influencing global progress.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="impact">
+  <div class="impact-header">
+    <h2>OUR IMPACT</h2>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <i class="fas fa-users"></i>
+      <div class="num">500K+</div>
+      <div class="label">Members Worldwide</div>
+    </div>
+    <div class="impact-card">
+      <i class="fas fa-globe"></i>
+      <div class="num">40+</div>
+      <div class="label">Countries Reached</div>
+    </div>
+    <div class="impact-card">
+      <i class="fas fa-building"></i>
+      <div class="num">36</div>
+      <div class="label">State Chapters</div>
+    </div>
+    <div class="impact-card">
+      <i class="fas fa-hands-helping"></i>
+      <div class="num">100+</div>
+      <div class="label">Community Projects</div>
+    </div>
+    <div class="impact-card">
+      <i class="fas fa-user-graduate"></i>
+      <div class="num">50K+</div>
+      <div class="label">Youth Empowered</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2>Be a Part of the Movement</h2>
+      <p>Join thousands of Ndigbo making a difference in our communities and around the world.</p>
+    </div>
+    <a href="#" class="btn-member">Become a Member <i class="fas fa-circle-right"></i></a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Ohanaeze Ndigbo Worldwide</h3>
+      <p class="sub">The Apex Igbo Socio-Cultural Organization</p>
+      <p class="desc">The apex Igbo socio-cultural organization promoting unity, welfare and cultural heritage of the Igbo people worldwide.</p>
+      <div class="footer-socials">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Executive Committee</a></li>
+        <li><a href="#">Constitution</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Our Structure</a></li>
+        <li><a href="#">Documents</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Membership</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>No. 1 Ohanaeze Ndigbo Avenue, Enugu, Nigeria.</span>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <span>+234 803 123 4567</span>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Newsletter</h4>
+      <div class="newsletter-form">
+        <div class="nl-input-group">
+          <input type="email" placeholder="Enter your email">
+          <button class="btn-subscribe">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Ohanaeze Ndigbo Worldwide. All Rights Reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
