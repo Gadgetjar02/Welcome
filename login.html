@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Ohanaeze Ndigbo Worldwide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=600;700;900&family=Inter:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #8B0000;
+    --red-dark: #5a0000;
+    --gold: #D4A017;
+    --gold-light: #F0C040;
+    --black: #111111;
+    --white: #ffffff;
+    --gray-light: #f5f5f5;
+    --gray: #666666;
+    --border: #e0e0e0;
+  }
+
+  body { 
+    font-family: 'Inter', sans-serif; 
+    color: var(--black); 
+    background: var(--gray-light); 
+    font-size: 14px; 
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* ── CENTERED LOGIN CONTAINER ── */
+  .login-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .login-card {
+    background: var(--white);
+    width: 100%;
+    max-width: 450px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+    overflow: hidden;
+    border-top: 5px solid var(--red);
+  }
+
+  .login-header {
+    background: linear-gradient(rgba(139, 0, 0, 0.95), rgba(90, 0, 0, 0.98)), url('https://images.unsplash.com/photo-1599733589046-10c005739ef9?auto=format&fit=crop&w=600&q=80');
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    padding: 35px 30px;
+    text-align: center;
+    border-bottom: 3px solid var(--gold);
+  }
+
+  .brand-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid var(--gold);
+  }
+  
+  .brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .login-header h2 { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 24px; 
+    font-weight: 900; 
+    letter-spacing: 0.5px;
+  }
+  
+  .login-header p { 
+    font-size: 11px; 
+    color: #ccc; 
+    margin-top: 4px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+  }
+
+  .login-body {
+    padding: 40px 30px;
+  }
+
+  /* Form Architecture */
+  .form-group { 
+    margin-bottom: 22px; 
+  }
+  
+  .form-group label { 
+    display: block; 
+    font-weight: 600; 
+    font-size: 11px; 
+    text-transform: uppercase; 
+    margin-bottom: 8px; 
+    color: #333; 
+    letter-spacing: 0.5px; 
+  }
+  
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-wrapper i {
+    position: absolute;
+    left: 14px;
+    color: var(--gray);
+    font-size: 14px;
+  }
+
+  .form-control { 
+    width: 100%; 
+    padding: 13px 14px 13px 40px; 
+    border: 1px solid var(--border); 
+    border-radius: 4px; 
+    font-family: inherit; 
+    font-size: 14px; 
+    outline: none; 
+    background: #fff; 
+    transition: all 0.2s ease; 
+  }
+  
+  .form-control:focus { 
+    border-color: var(--red); 
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.08);
+  }
+
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 12px;
+  }
+
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #444;
+  }
+
+  .forgot-password {
+    color: var(--red);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+
+  .btn-login { 
+    background: var(--red); 
+    color: var(--white); 
+    border: none; 
+    padding: 14px; 
+    width: 100%;
+    font-weight: 700; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    font-size: 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    transition: background 0.2s; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .btn-login:hover { 
+    background: var(--red-dark); 
+  }
+
+  .login-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  .login-footer a {
+    color: var(--red);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .login-footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* Back to home flag */
+  .back-home {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .back-home a {
+    font-size: 12px;
+    color: var(--gray);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .back-home a:hover {
+    color: var(--red);
+  }
+</style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div>
+      <div class="back-home">
+        <a href="index.html"><i class="fas fa-arrow-left"></i> Back to homepage</a>
+      </div>
+      
+      <div class="login-card">
+        <!-- HEADER STACK -->
+        <div class="login-header">
+          <div class="brand-logo">
+            <!-- Ensure path points correctly to your logo file asset -->
+            <img src="img/logo.jpeg" alt="Ohanaeze Ndigbo Logo">
+          </div>
+          <h2>Welcome Back</h2>
+          <p>Membership Verification System</p>
+        </div>
+
+        <!-- FORM LAYER -->
+        <div class="login-body">
+          <form id="standaloneLoginForm" onsubmit="executeLogin(event)">
+            
+            <!-- Email Field -->
+            <div class="form-group">
+              <label for="loginEmail">Email Address</label>
+              <div class="input-wrapper">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="loginEmail" class="form-control" placeholder="name@domain.com" required autocomplete="email">
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+              <label for="loginPassword">Account Password</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+              </div>
+            </div>
+
+            <!-- Options Stack -->
+            <div class="form-options">
+              <label class="remember-me">
+                <input type="checkbox" id="rememberMe"> Remember my session
+              </label>
+              <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <!-- Call to Action -->
+            <button type="submit" class="btn-login">
+              Access Profile <i class="fas fa-sign-in-alt"></i>
+            </button>
+
+            <!-- Registration Entrypoint fallback -->
+            <div class="login-footer">
+              Don't have an active profile? <a href="signup.html">Register here</a>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function executeLogin(event) {
+    event.preventDefault();
+
+    const emailValue = document.getElementById('loginEmail').value;
+    const passwordValue = document.getElementById('loginPassword').value;
+
+    if (!emailValue || !passwordValue) {
+      alert("Please populate all credential validation fields.");
+      return;
+    }
+
+    // --- ARCHITECTURAL ROUTING NOTE ---
+    // If you are pairing this up with a backend system, pass these variables 
+    // down into an AJAX request framework context here.
+    // To simulate a success state natively:
+    
+    alert(`Access granted for: ${emailValue}\nRedirecting to secure workspace...`);
+    
+    // Redirect logic to your master member portal environment layout index:
+    window.location.href = "index.html?authenticated=true&email=" + encodeURIComponent(emailValue);
+  }
+</script>
+
+</body>
+</html>
